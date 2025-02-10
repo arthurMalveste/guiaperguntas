@@ -1,0 +1,33 @@
+<%- include ('partials/header.ejs') %>
+<body>
+    <%- include ('partials/navbar.ejs') %>
+
+        <% if (menssagem == true){ %>
+        <div class="alert alert-success notifi" role="alert">
+            <h2 class="text-notifi">Página não encontrada</h2>
+        </div>
+        <% } %>
+    
+    <div class="container">
+        <hr>
+        <h1>Perguntas</h1>
+        <hr>
+        <a href="/perguntar" class="btn btn-primary">Perguntar</a>
+        <hr>
+        <% perguntas.forEach(pergunta => { %>
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <h3><%= pergunta.titulo %></h3>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary">Responder</a>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+    <script src="/js/main.js"></script>
+
+</body>
+<%- include ('partials/footer.ejs') %>
