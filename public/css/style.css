@@ -48,3 +48,17 @@ body{
     margin: -90px -10px;
 
 }
+
+nav {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.nav-direita{
+    display: flex;
+    align-items: center;
+}
+.login{
+    margin-right: 20px;
+}
