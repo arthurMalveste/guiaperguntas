@@ -105,11 +105,12 @@ app.get("/cadastrar", (req, res) => {
 app.post("/salvarcadastro", (req, res) => {
     var usuario = req.body.usuario;
     var senha = req.body.senha;
+    var confirmacaoSenha = req.body.confirmacaoSenha;
 
-    if(senha == req.body.confirmacaoSenha){
+    if(senha == confirmacaoSenha){
         Cadastro.create({
             usuario: usuario,
-            senha: senha
+            senha: senha,
         }).then(() => {
             res.redirect("/");
         });

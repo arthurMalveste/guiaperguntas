@@ -2,7 +2,30 @@
 <body>
     <%- include ('partials/navbar.ejs') %>
 
-    
+    <div class="container">
+
+        <div class="card" id="formulario-cadastro">
+            <div class="car-header">
+                <h3 class="title">Cadastro</h3>
+            </div>
+            <div class="card-body">
+                <hr>
+                <form action="/salvarcadastro" method="POST">
+                    <label for="">Usuario</label>
+                    <input name="usuario" type="text" placeholder="Usuario" class="form-control">
+                    <br>
+                    <label for="">Senha</label>
+                    <input name="senha" type="text" placeholder="Senha" class="form-control">
+                    <label for="">Repetir Senha</label>
+                    <input name="confirmacaoSenha" type="text" placeholder="Senha" class="form-control">
+                    
+                    
+                    <br>
+                    <button class="btn btn-success">Perguntar</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
 </body>
 <%- include ('partials/footer.ejs') %>
