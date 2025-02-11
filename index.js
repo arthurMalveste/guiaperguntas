@@ -97,6 +97,30 @@ app.post("/responder", (req, res)=>{
     })
 })
 
+app.get("/cadastrar", (req, res) => {
+    title = "Cadastrar"
+    res.render("cadastrar")
+});
+
+app.post("/salvarcadastro", (req, res) => {
+    var usuario = req.body.usuario;
+    var senha = req.body.senha;
+
+    if(senha == req.body.confirmacaoSenha){
+        Cadastro.create({
+            usuario: usuario,
+            senha: senha
+        }).then(() => {
+            res.redirect("/");
+        });
+    } else {
+        res.redirect("/cadastrar")
+        msgErro = "As senhas não coincidem";
+    }
+});
+
+
+
 app.listen(8080, ()=>{
     console.log("app rodando")
 })
