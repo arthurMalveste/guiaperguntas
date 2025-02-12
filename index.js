@@ -99,8 +99,8 @@ app.post("/responder", (req, res)=>{
 })
 
 app.get("/cadastrar", (req, res) => {
-    title = "Cadastrar"
-    res.render("cadastrar")
+    title = "Cadastrar";
+    res.render("cadastrar", { msgErro: null });
 });
 
 app.post("/salvarcadastro", (req, res) => {
@@ -108,7 +108,7 @@ app.post("/salvarcadastro", (req, res) => {
     var senha = req.body.senha;
     var confirmacaoSenha = req.body.confirmacaoSenha;
 
-    if(senha == confirmacaoSenha){
+    if (senha == confirmacaoSenha) {
         Cadastro.create({
             usuario: usuario,
             senha: senha,
@@ -116,12 +116,9 @@ app.post("/salvarcadastro", (req, res) => {
             res.redirect("/");
         });
     } else {
-        res.redirect("/cadastrar")
-        msgErro = "As senhas não coincidem";
+        res.render("cadastrar", { msgErro: "As senhas não coincidem" });
     }
 });
-
-
 
 app.listen(8080, ()=>{
     console.log("app rodando")

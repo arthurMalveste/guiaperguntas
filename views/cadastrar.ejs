@@ -15,16 +15,21 @@
                     <input name="usuario" type="text" placeholder="Usuario" class="form-control">
                     <br>
                     <label for="">Senha</label>
-                    <input name="senha" type="text" placeholder="Senha" class="form-control">
+                    <input name="senha" type="password" placeholder="Senha" class="form-control">
                     <br>
                     <label for="">Repetir Senha</label>
-                    <input name="confirmacaoSenha" type="text" placeholder="Senha" class="form-control">
+                    <input name="confirmacaoSenha" type="password" placeholder="Senha" class="form-control">
                     
                     
                     <br>
                     <button class="btn btn-success">Cadastrar</button>
                 </form>
             </div>
+        </div>
+        <div class="resposta">
+            <% if (msgErro) { %>
+                <p class="msgErro"><%= msgErro %></p>
+            <% } %>
         </div>
     </div>
 
