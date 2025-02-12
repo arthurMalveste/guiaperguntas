@@ -11,7 +11,7 @@ const Cadastro = connection.define('cadastro', {
         type: Sequelize.TEXT,
         allowNull: false // Não permite valores nulos
     }
-});d
+});
 
 // Sincroniza o modelo com o banco de dados
 Cadastro.sync({ force: false }).then(() => {
