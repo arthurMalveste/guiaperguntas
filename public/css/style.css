@@ -49,6 +49,10 @@ body{
 
 }
 
+.formulario-cadastro{
+    margin-top: 5vh;
+}
+
 nav {
     display: flex !important;
     justify-content: space-between !important;
