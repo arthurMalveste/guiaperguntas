@@ -74,3 +74,23 @@ nav {
     margin-top: 10px;
 }
 
+.resposta {
+    margin-top: 20px;
+    position: relative; /* Adiciona posição relativa ao contêiner da resposta */
+}
+
+.resposta .data {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+    color: gray;
+}
+.nome {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 10px;
+    font-size: 12px;
+    color: gray;
+}

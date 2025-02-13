@@ -76,7 +76,8 @@ app.get("/pergunta/:id", (req, res) => {
             }).then(respostas => {
                 res.render("pergunta", {
                     pergunta: pergunta,
-                    respostas: respostas
+                    respostas: respostas,
+                    createdAt: pergunta.createdAt
                 });
             });
         } else { // pergunta não encontrada
@@ -109,15 +110,43 @@ app.post("/salvarcadastro", (req, res) => {
     var confirmacaoSenha = req.body.confirmacaoSenha;
 
     if (senha == confirmacaoSenha) {
-        Cadastro.create({
-            usuario: usuario,
-            senha: senha,
-        }).then(() => {
-            res.redirect("/");
+        Cadastro.findOne({ where: { usuario: usuario } }).then(user => {
+            if (user) {
+                // Usuário já existe
+                res.render("cadastrar", { msgErro: "Usuário já existe" });
+            } else {
+                // Usuário não existe, criar novo cadastro
+                Cadastro.create({
+                    usuario: usuario,
+                    senha: senha,
+                }).then(() => {
+                    res.redirect("/");
+                });
+            }
         });
     } else {
         res.render("cadastrar", { msgErro: "As senhas não coincidem" });
     }
+});
+
+app.get("/login", (req, res) => {
+    title = "Login";
+    res.render("login", { msgErro: null });
+});
+
+app.post("/autenticar", (req, res) => {
+    var usuario = req.body.usuario;
+    var senha = req.body.senha;
+
+    Cadastro.findOne({ where: { usuario: usuario, senha: senha } }).then(user => {
+        if (user) {
+            // Usuário autenticado com sucesso
+            res.redirect("/");
+        } else {
+            // Usuário ou senha incorretos
+            res.render("login", { msgErro: "Usuário ou senha incorretos" });
+        }
+    });
 });
 
 app.listen(8080, ()=>{

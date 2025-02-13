@@ -28,11 +28,12 @@
         <% } %>
 
         <% respostas.forEach(resposta => { %>
-            <div class="card">
+            <div class="card resposta">
+                <p class="data"><%= resposta.createdAt %></p>
+                <p class="nome">my user</p>
                 <div class="card-body">
                     <p><%= resposta.corpo %></p>
                 </div>
-                <p><%= createdAt %></p>
             </div>
             <br>
         <% }) %>
