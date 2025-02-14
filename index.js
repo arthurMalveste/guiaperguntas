@@ -129,26 +129,6 @@ app.post("/salvarcadastro", (req, res) => {
     }
 });
 
-app.get("/login", (req, res) => {
-    title = "Login";
-    res.render("login", { msgErro: null });
-});
-
-app.post("/autenticar", (req, res) => {
-    var usuario = req.body.usuario;
-    var senha = req.body.senha;
-
-    Cadastro.findOne({ where: { usuario: usuario, senha: senha } }).then(user => {
-        if (user) {
-            // Usuário autenticado com sucesso
-            res.redirect("/");
-        } else {
-            // Usuário ou senha incorretos
-            res.render("login", { msgErro: "Usuário ou senha incorretos" });
-        }
-    });
-});
-
 app.listen(8080, ()=>{
     console.log("app rodando")
 })
