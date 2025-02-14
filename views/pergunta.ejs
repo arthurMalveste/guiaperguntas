@@ -8,22 +8,22 @@
         <p><%= pergunta.descricao %></p>
         <hr>
         <form action="/responder" method="POST">
-            <h3>Responda</h3>
-            <label for="">Resposta:</label>
-            <textarea placeholder="Digite sua resposta" class="form-control" name="corpo" id="">
+            <h3>Reply</h3>
+            <label for="">Answer:</label>
+            <textarea placeholder="Enter your answer" class="form-control" name="corpo" id="">
             
             </textarea>
             <br>
             <input type="hidden" name="pergunta" value= '<%= pergunta.id %>'>
-            <button type="submit" class="btn btn-info">Responder</button>
+            <button type="submit" class="btn btn-info">Respond</button>
         </form>  
         <hr>
-        <h3>Respostas</h3>
+        <h3>Answers</h3>
         <hr>
 
         <% if (respostas.length == 0) { %>
             <div class="alert alert-info">
-                Ainda não há respostas para esta pergunta.
+                There are no answers to this question yet.
             </div>
         <% } %>
 

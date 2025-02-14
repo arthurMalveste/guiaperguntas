@@ -45,7 +45,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/perguntar", (req, res)=>{
-    title = "Perguntar"
+    title = "Ask"
     res.render("perguntar")
 })
 
@@ -63,7 +63,7 @@ app.post("/salvarpergunta", (req, res)=>{
 
 app.get("/pergunta/:id", (req, res) => {
     var id = req.params.id;
-    title = "Pergunta"
+    title = "Question"
     Pergunta.findOne({
         where: { id: id }
     }).then(pergunta => {
@@ -100,7 +100,7 @@ app.post("/responder", (req, res)=>{
 })
 
 app.get("/cadastrar", (req, res) => {
-    title = "Cadastrar";
+    title = "Register";
     res.render("cadastrar", { msgErro: null });
 });
 
