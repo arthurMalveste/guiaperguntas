@@ -127,7 +127,11 @@ app.post("/responder", isAuthenticated, (req, res)=>{
 
 app.get("/cadastrar", (req, res) => {
     title = "Register";
-    res.render("cadastrar", { msgErro: null });
+    if (req.session.user) {
+        res.render("logado")
+    }else{
+        res.render("cadastrar", { msgErro: null });
+    }
 });
 
 app.get("/Login", (req, res) => {
