@@ -44,7 +44,7 @@ function isAuthenticated(req, res, next) {
     if (req.session.user) {
         return next();
     } else {
-        res.redirect('/login');
+        res.redirect('/Login');
     }
 }
 
@@ -132,7 +132,12 @@ app.get("/cadastrar", (req, res) => {
 
 app.get("/Login", (req, res) => {
     title = "Login";
-    res.render("login", { msgErro: null });
+
+    if (req.session.user) {
+        res.render("logado")
+    }else{
+        res.render("login", { msgErro: null });
+    }
 });
 
 app.post('/login', (req, res) => {
