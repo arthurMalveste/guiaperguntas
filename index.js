@@ -48,22 +48,19 @@ function isAuthenticated(req, res, next) {
     }
 }
 
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
 
 app.get("/", (req, res) => {
     title = "Home"
-    if(req.session.user){
-        var user = req.session.user
-        console.log(user)
-    }else{
-        console.log("Não logado")
-    }
     Pergunta.findAll({ raw: true, order:[
         ['id', 'DESC'] // ASC = crescente || DESC = decrescente
     ] }).then(perguntas => {
         res.render("index", {
             perguntas: perguntas,
-            menssagem: menssagem,
-            user: req.session.user
+            menssagem: menssagem
         });
         menssagem = false; // Reset the message after rendering
     });
