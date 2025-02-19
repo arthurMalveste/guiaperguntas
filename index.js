@@ -5,6 +5,16 @@ const connection = require("./database/database")
 const Pergunta = require("./database/pergunta")
 const Resposta = require("./database/Resposta")
 const Cadastro = require("./database/Cadastro")
+const session = require("express-session")
+
+// let path = require('path');
+
+app.use(session({
+    secret: "qualquer",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 30 * 60 * 1000 } //   30 minutos
+}))
 
 var menssagem = false
 
@@ -30,26 +40,42 @@ app.use(bodyParser.json())
 //  "hmtl" 
 // <% } %>
 
+function isAuthenticated(req, res, next) {
+    if (req.session.user) {
+        return next();
+    } else {
+        res.redirect('/login');
+    }
+}
+
 
 app.get("/", (req, res) => {
     title = "Home"
+    if(req.session.user){
+        var user = req.session.user
+        console.log(user)
+    }else{
+        console.log("Não logado")
+    }
     Pergunta.findAll({ raw: true, order:[
         ['id', 'DESC'] // ASC = crescente || DESC = decrescente
     ] }).then(perguntas => {
         res.render("index", {
             perguntas: perguntas,
-            menssagem: menssagem
+            menssagem: menssagem,
+            user: req.session.user
         });
         menssagem = false; // Reset the message after rendering
     });
+    
 });
 
-app.get("/perguntar", (req, res)=>{
+app.get("/perguntar", isAuthenticated, (req, res)=>{
     title = "Ask"
     res.render("perguntar")
 })
 
-app.post("/salvarpergunta", (req, res)=>{
+app.post("/salvarpergunta", isAuthenticated, (req, res)=>{
     var titulo = req.body.titulo
     var descricao = req.body.descricao
 
@@ -87,7 +113,7 @@ app.get("/pergunta/:id", (req, res) => {
     });
 });
 
-app.post("/responder", (req, res)=>{
+app.post("/responder", isAuthenticated, (req, res)=>{
     var corpo = req.body.corpo
     var perguntaId = req.body.pergunta
 
@@ -104,9 +130,32 @@ app.get("/cadastrar", (req, res) => {
     res.render("cadastrar", { msgErro: null });
 });
 
-app.get("/login", (req, res) => {
+app.get("/Login", (req, res) => {
     title = "Login";
     res.render("login", { msgErro: null });
+});
+
+app.post('/login', (req, res) => {
+    const { usuario, senha } = req.body;
+
+    Cadastro.findOne({ where: { usuario: usuario, senha: senha } }).then(user => {
+        if (user) {
+            req.session.user = user; // Armazena as informações do usuário na sessão
+            res.redirect('/');
+        } else {
+            res.render('login', { msgErro: 'Usuário ou senha incorretos' });
+        }
+    });
+});
+
+app.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.redirect('/');
+        }
+        res.clearCookie('connect.sid');
+        res.redirect('/login');
+    });
 });
 
 app.post("/salvarcadastro", (req, res) => {

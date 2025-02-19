@@ -7,7 +7,7 @@
         <h1><%= pergunta.titulo %></h1><!--  nome da variavel . nome da coluna -->
         <p><%= pergunta.descricao %></p>
         <hr>
-        <form action="/responder" method="POST">
+        <form id="form-resposta" action="/responder" method="POST">
             <h3>Reply</h3>
             <label for="">Answer:</label>
             <textarea placeholder="Enter your answer" class="form-control" name="corpo" id="">
