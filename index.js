@@ -104,6 +104,11 @@ app.get("/cadastrar", (req, res) => {
     res.render("cadastrar", { msgErro: null });
 });
 
+app.get("/login", (req, res) => {
+    title = "Login";
+    res.render("login", { msgErro: null });
+});
+
 app.post("/salvarcadastro", (req, res) => {
     var usuario = req.body.usuario;
     var senha = req.body.senha;
